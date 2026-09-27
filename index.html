@@ -63,8 +63,43 @@
             width: 100%; height: 180px; background-color: #070505;
             border: 1px solid var(--border-color); border-radius: 4px;
             margin-bottom: 16px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; position: relative;
         }
+        .texture-preview-window:hover { border-color: var(--accent-color); }
         .texture-preview-window img { width: 100%; height: 100%; object-fit: cover; }
+
+        .preview-hint {
+            position: absolute; bottom: 8px; right: 8px;
+            font-family: var(--font-mono); font-size: 10px;
+            color: var(--accent-color); background: rgba(12,10,10,0.85);
+            padding: 3px 8px; border-radius: 3px; text-transform: uppercase;
+            opacity: 0; transition: opacity 0.2s;
+        }
+        .texture-preview-window:hover .preview-hint { opacity: 1; }
+
+        .skybox-mini-cube {
+            width: 80px; height: 80px;
+            transform-style: preserve-3d;
+            animation: mini-spin 8s linear infinite;
+        }
+        .skybox-mini-cube div {
+            position: absolute; width: 80px; height: 80px;
+            background: linear-gradient(135deg, #1a1515, #0c0a0a);
+            border: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-mono); font-size: 9px; color: var(--accent-color);
+        }
+        .skybox-mini-cube div:nth-child(1) { transform: translateZ(40px); }
+        .skybox-mini-cube div:nth-child(2) { transform: rotateY(180deg) translateZ(40px); }
+        .skybox-mini-cube div:nth-child(3) { transform: rotateY(90deg) translateZ(40px); }
+        .skybox-mini-cube div:nth-child(4) { transform: rotateY(-90deg) translateZ(40px); }
+        .skybox-mini-cube div:nth-child(5) { transform: rotateX(90deg) translateZ(40px); }
+        .skybox-mini-cube div:nth-child(6) { transform: rotateX(-90deg) translateZ(40px); }
+
+        @keyframes mini-spin {
+            from { transform: rotateX(-20deg) rotateY(0deg); }
+            to { transform: rotateX(-20deg) rotateY(360deg); }
+        }
 
         .texture-title { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
 
@@ -92,6 +127,109 @@
             border-top: 1px dashed var(--border-color); padding-top: 20px;
             font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); text-align: center;
         }
+
+        /* ===== PANORAMA MODAL ===== */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #050404; z-index: 9999;
+            align-items: center; justify-content: center; flex-direction: column;
+        }
+        .modal-overlay.active { display: flex; }
+
+        .modal-close {
+            position: absolute; top: 16px; right: 24px;
+            font-size: 24px; color: var(--text-muted); cursor: pointer;
+            transition: color 0.2s; user-select: none; z-index: 10001;
+            font-family: var(--font-mono);
+        }
+        .modal-close:hover { color: var(--accent-color); }
+
+        .modal-title {
+            position: absolute; top: 20px; left: 24px;
+            font-family: var(--font-mono); font-size: 12px; color: var(--accent-color);
+            text-transform: uppercase; letter-spacing: 2px; z-index: 10001;
+        }
+
+        .pano-viewer {
+            width: 100%; height: 100%;
+            perspective: 900px; perspective-origin: 50% 50%;
+            overflow: hidden; cursor: grab;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .pano-viewer:active { cursor: grabbing; }
+
+        .pano-cylinder {
+            position: relative;
+            transform-style: preserve-3d;
+            width: 1px; height: 1px;
+            transform: rotateY(0deg);
+            transition: transform 0.05s linear;
+        }
+
+        .pano-segment {
+            position: absolute;
+            background-size: cover; background-position: center;
+            backface-visibility: hidden;
+        }
+
+        .pano-controls {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 10px; z-index: 10001;
+        }
+        .pano-controls button {
+            background: rgba(12,10,10,0.85); border: 1px solid var(--border-color); color: var(--text-main);
+            padding: 10px 18px; font-family: var(--font-mono); font-size: 11px;
+            cursor: pointer; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px;
+            transition: all 0.2s; backdrop-filter: blur(4px);
+        }
+        .pano-controls button:hover { border-color: var(--accent-color); color: var(--accent-color); }
+        .pano-controls button.active {
+            background: var(--accent-color); border-color: var(--accent-color); color: #fff;
+        }
+
+        .pano-info {
+            position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+            font-family: var(--font-mono); font-size: 10px;
+            color: var(--text-muted); text-align: center; z-index: 10001;
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        .pano-compass {
+            position: absolute; top: 50px; left: 50%; transform: translateX(-50%);
+            font-family: var(--font-mono); font-size: 10px; color: var(--accent-color);
+            z-index: 10001; letter-spacing: 2px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .pano-compass-bar {
+            width: 200px; height: 2px; background: var(--border-color); position: relative; overflow: hidden;
+        }
+        .pano-compass-fill {
+            position: absolute; top: 0; left: 0; height: 100%; width: 30%;
+            background: var(--accent-color); transition: left 0.05s linear;
+        }
+
+        /* ===== IMAGE PREVIEW MODAL ===== */
+        .image-preview-container {
+            max-width: 90vw; max-height: 80vh; border-radius: 4px;
+            border: 1px solid var(--border-color); overflow: hidden;
+        }
+        .image-preview-container img { max-width: 100%; max-height: 80vh; display: block; }
+
+        /* ===== FONT PREVIEW MODAL ===== */
+        .font-preview-container {
+            max-width: 600px; text-align: center; padding: 40px;
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 4px;
+        }
+        .font-preview-container .font-sample {
+            font-size: 48px; margin-bottom: 20px; color: var(--text-main);
+        }
+        .font-preview-container .font-meta {
+            font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .font-preview-container .font-alphabet {
+            font-size: 20px; line-height: 1.8; color: var(--text-main);
+        }
     </style>
 </head>
 <body>
@@ -106,7 +244,59 @@
 
     <footer>Powered By FlareTextures - By Manglev</footer>
 
+    <!-- Panorama Modal -->
+    <div class="modal-overlay" id="skyboxModal">
+        <span class="modal-close" onclick="closeModal('skyboxModal')">[ ESC ]</span>
+        <div class="modal-title" id="skyboxModalTitle">PANORAMA PREVIEW</div>
+        <div class="pano-compass">
+            <span>N</span>
+            <div class="pano-compass-bar"><div class="pano-compass-fill" id="panoCompassFill"></div></div>
+            <span>S</span>
+        </div>
+        <div class="pano-viewer" id="panoViewer">
+            <div class="pano-cylinder" id="panoCylinder"></div>
+        </div>
+        <div class="pano-info" id="panoInfo">DRAG TO LOOK AROUND</div>
+        <div class="pano-controls">
+            <button id="panoAutoRotate" onclick="toggleAutoRotate()">Auto Rotate</button>
+            <button onclick="resetPanoView()">Reset View</button>
+        </div>
+    </div>
+
+    <!-- Image Preview Modal -->
+    <div class="modal-overlay" id="imageModal">
+        <span class="modal-close" onclick="closeModal('imageModal')">[ ESC ]</span>
+        <div class="modal-title" id="imageModalTitle">TEXTURE PREVIEW</div>
+        <div class="image-preview-container">
+            <img id="imagePreviewSrc" src="" alt="Preview">
+        </div>
+    </div>
+
+    <!-- Font Preview Modal -->
+    <div class="modal-overlay" id="fontModal">
+        <span class="modal-close" onclick="closeModal('fontModal')">[ ESC ]</span>
+        <div class="modal-title" id="fontModalTitle">FONT PREVIEW</div>
+        <div class="font-preview-container">
+            <div class="font-sample" id="fontSample">The quick brown fox</div>
+            <div class="font-meta" id="fontMeta"></div>
+            <div class="font-alphabet" id="fontAlphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789</div>
+        </div>
+    </div>
+
     <script>
+        /*******************************************************************************
+         * 🛑 EDIT BOX — Change your files and names here! 🛑
+         *
+         *   { name: "DISPLAY NAME", file: "URL", type: "TEXTURE|SKYBOX|FONT", preview: "PREVIEW_IMAGE_URL" },
+         *
+         * `preview` is optional — a thumbnail image shown on the card. If omitted:
+         *   - TEXTURE: uses the file URL as the image
+         *   - SKYBOX: shows an animated 3D cube
+         *   - FONT: shows "Aa" in the loaded font
+         *
+         * For SKYBOX items, you can optionally provide `panorama` with a 360° image URL
+         * to enable the panorama viewer when clicked.
+         *******************************************************************************/
         const MY_TEXTURE_LIST = [
             { 
                 name: "SCP Metal Texture", 
@@ -117,7 +307,8 @@
                 name: "Custom Sky Sky", 
                 file: "https://raw.githubusercontent.com/flinkobiz-creator/My-Texture-Packs-For-Rivals/refs/heads/main/pirxcy_skybox_spread.zip",
                 type: "SKYBOX",
-                preview: "https://i.redd.it/shp8jwabop7g1.png"
+                preview: "https://i.redd.it/shp8jwabop7g1.png",
+                panorama: "https://i.redd.it/shp8jwabop7g1.png"
             },
             { 
                 name: "Typewriter Font", 
@@ -126,7 +317,22 @@
                 preview: "https://i.etsystatic.com/23070958/r/il/590de6/4469943030/il_1080xN.4469943030_eqix.jpg"
             }
         ];
+        /*******************************************************************************
+         * 🛑 END EDIT BOX — Engine below, don't touch! 🛑
+         *******************************************************************************/
 
+        /* ---- Font face loader ---- */
+        const loadedFonts = new Set();
+        function loadFont(name, url) {
+            if (loadedFonts.has(name)) return;
+            loadedFonts.add(name);
+            const fontFace = new FontFace(name, `url("${url}")`);
+            fontFace.load().then(loadedFace => {
+                document.fonts.add(loadedFace);
+            }).catch(() => {});
+        }
+
+        /* ---- Card rendering ---- */
         const gridContainer = document.getElementById('gridContainer');
         
         MY_TEXTURE_LIST.forEach((item) => {
@@ -135,10 +341,29 @@
             
             const cleanDomainPath = item.file;
 
+            // Build preview window content — preview image takes priority, then type-specific fallback
+            let previewHTML = '';
+            if (item.preview) {
+                previewHTML = `<img src="${item.preview}" alt="${item.name}" onerror="this.style.display='none';this.parentNode.innerText='PREVIEW UNAVAILABLE';">`;
+            } else if (item.type === 'SKYBOX') {
+                previewHTML = `
+                    <div class="skybox-mini-cube">
+                        <div>FRONT</div><div>BACK</div><div>RIGHT</div>
+                        <div>LEFT</div><div>TOP</div><div>BOTTOM</div>
+                    </div>
+                `;
+            } else if (item.type === 'FONT') {
+                loadFont(item.name, item.file);
+                previewHTML = `<div style="font-family:'${item.name}';font-size:36px;color:var(--text-main);">Aa</div>`;
+            } else {
+                previewHTML = `<img src="${item.file}" alt="${item.name}" onerror="this.style.display='none';this.parentNode.innerText='NO IMAGE FILE IN CLOUDFLARE FOLDER';">`;
+            }
+
             card.innerHTML = `
                 <span class="card-tag">${item.type || 'ASSET'}</span>
-                <div class="texture-preview-window">
-                    <img src="${item.file}" alt="${item.name}" onerror="this.style.display='none'; this.parentNode.innerText='NO IMAGE FILE IN CLOUDFLARE FOLDER';">
+                <div class="texture-preview-window" onclick="openPreview(${MY_TEXTURE_LIST.indexOf(item)})">
+                    ${previewHTML}
+                    <span class="preview-hint">${item.type === 'SKYBOX' ? 'Click for 360° view' : 'Click to preview'}</span>
                 </div>
                 <div class="texture-title">${item.name}</div>
                 <div class="url-box">${cleanDomainPath}</div>
@@ -148,6 +373,182 @@
                 </div>
             `;
             gridContainer.appendChild(card);
+        });
+
+        /* ---- Preview system ---- */
+        function openPreview(index) {
+            const item = MY_TEXTURE_LIST[index];
+            if (item.type === 'SKYBOX') {
+                openSkyboxPreview(item);
+            } else if (item.type === 'FONT') {
+                openFontPreview(item);
+            } else {
+                openImagePreview(item);
+            }
+        }
+
+        function openImagePreview(item) {
+            document.getElementById('imageModalTitle').textContent = item.name.toUpperCase();
+            document.getElementById('imagePreviewSrc').src = item.preview || item.file;
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        function openFontPreview(item) {
+            loadFont(item.name, item.file);
+            document.getElementById('fontModalTitle').textContent = item.name.toUpperCase();
+            document.getElementById('fontSample').style.fontFamily = `'${item.name}'`;
+            document.getElementById('fontAlphabet').style.fontFamily = `'${item.name}'`;
+            document.getElementById('fontMeta').textContent = `File: ${item.file.split('/').pop()}`;
+            document.getElementById('fontModal').classList.add('active');
+        }
+
+        /* ===== PANORAMA 360° VIEWER ===== */
+        const PANO_SEGMENTS = 24;
+        const PANO_RADIUS = 500;
+        const PANO_HEIGHT = 1000;
+        let panoState = { rotY: 0, autoRotate: false, dragging: false, lastX: 0, velocity: 0 };
+
+        function buildPanoCylinder(imageUrl) {
+            const cylinder = document.getElementById('panoCylinder');
+            cylinder.innerHTML = '';
+            const segAngle = 360 / PANO_SEGMENTS;
+            const segWidth = Math.tan((segAngle * Math.PI / 180) / 2) * PANO_RADIUS * 2;
+
+            for (let i = 0; i < PANO_SEGMENTS; i++) {
+                const angle = i * segAngle;
+                const seg = document.createElement('div');
+                seg.className = 'pano-segment';
+                seg.style.width = (segWidth + 2) + 'px';
+                seg.style.height = PANO_HEIGHT + 'px';
+                seg.style.left = (-(segWidth + 2) / 2) + 'px';
+                seg.style.top = (-PANO_HEIGHT / 2) + 'px';
+                seg.style.backgroundImage = `url("${imageUrl}")`;
+                seg.style.backgroundSize = (PANO_SEGMENTS * segWidth) + 'px 100%';
+                seg.style.backgroundPosition = `${(i / (PANO_SEGMENTS - 1)) * 100}% 50%`;
+                seg.style.backgroundRepeat = 'no-repeat';
+                seg.style.transform = `rotateY(${angle}deg) translateZ(${PANO_RADIUS}px)`;
+                cylinder.appendChild(seg);
+            }
+        }
+
+        function openSkyboxPreview(item) {
+            document.getElementById('skyboxModalTitle').textContent = item.name.toUpperCase();
+            const panoUrl = item.panorama || item.preview || item.file;
+
+            if (panoUrl) {
+                buildPanoCylinder(panoUrl);
+                document.getElementById('panoInfo').textContent = 'DRAG TO LOOK AROUND // 360° PANORAMA';
+            } else {
+                document.getElementById('panoInfo').textContent = 'No panorama image available';
+            }
+
+            panoState.rotY = 0;
+            panoState.velocity = 0;
+            updatePanoTransform();
+            document.getElementById('skyboxModal').classList.add('active');
+        }
+
+        function updatePanoTransform() {
+            const cylinder = document.getElementById('panoCylinder');
+            cylinder.style.transform = `rotateY(${panoState.rotY}deg)`;
+            const compassPercent = ((panoState.rotY % 360) + 360) % 360 / 360 * 100;
+            document.getElementById('panoCompassFill').style.left = (compassPercent * 0.7) + '%';
+        }
+
+        function toggleAutoRotate() {
+            panoState.autoRotate = !panoState.autoRotate;
+            document.getElementById('panoAutoRotate').classList.toggle('active', panoState.autoRotate);
+        }
+
+        function resetPanoView() {
+            panoState.rotY = 0;
+            panoState.velocity = 0;
+            updatePanoTransform();
+        }
+
+        // Drag to rotate
+        const panoViewer = document.getElementById('panoViewer');
+        panoViewer.addEventListener('mousedown', (e) => {
+            panoState.dragging = true;
+            panoState.lastX = e.clientX;
+            panoState.velocity = 0;
+        });
+        document.addEventListener('mousemove', (e) => {
+            if (!panoState.dragging) return;
+            const dx = e.clientX - panoState.lastX;
+            panoState.rotY -= dx * 0.3;
+            panoState.velocity = -dx * 0.3;
+            panoState.lastX = e.clientX;
+            updatePanoTransform();
+        });
+        document.addEventListener('mouseup', () => { panoState.dragging = false; });
+
+        // Touch support
+        panoViewer.addEventListener('touchstart', (e) => {
+            panoState.dragging = true;
+            panoState.lastX = e.touches[0].clientX;
+            panoState.velocity = 0;
+        });
+        document.addEventListener('touchmove', (e) => {
+            if (!panoState.dragging) return;
+            const dx = e.touches[0].clientX - panoState.lastX;
+            panoState.rotY -= dx * 0.3;
+            panoState.velocity = -dx * 0.3;
+            panoState.lastX = e.touches[0].clientX;
+            updatePanoTransform();
+        });
+        document.addEventListener('touchend', () => { panoState.dragging = false; });
+
+        // Auto-rotate + inertia animation loop
+        function panoAnimLoop() {
+            if (document.getElementById('skyboxModal').classList.contains('active')) {
+                if (panoState.autoRotate && !panoState.dragging) {
+                    panoState.rotY -= 0.15;
+                    updatePanoTransform();
+                } else if (!panoState.dragging && Math.abs(panoState.velocity) > 0.01) {
+                    panoState.rotY += panoState.velocity;
+                    panoState.velocity *= 0.95;
+                    updatePanoTransform();
+                }
+            }
+            requestAnimationFrame(panoAnimLoop);
+        }
+        panoAnimLoop();
+
+        /* ---- Modal close ---- */
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+            if (id === 'skyboxModal') {
+                panoState.autoRotate = false;
+                panoState.velocity = 0;
+                document.getElementById('panoAutoRotate').classList.remove('active');
+            }
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    if (overlay.id === 'skyboxModal') {
+                        panoState.autoRotate = false;
+                        panoState.velocity = 0;
+                        document.getElementById('panoAutoRotate').classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(m => {
+                    m.classList.remove('active');
+                    if (m.id === 'skyboxModal') {
+                        panoState.autoRotate = false;
+                        panoState.velocity = 0;
+                        document.getElementById('panoAutoRotate').classList.remove('active');
+                    }
+                });
+            }
         });
     </script>
 </body>

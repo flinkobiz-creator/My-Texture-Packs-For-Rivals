@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEXTURE DEPOT // RIVALS PACK ASSETS</title>
+    <title>My Rivals Assets // RIVALS PACK ASSETS</title>
     <style>
         /* Pirxcy Minimal Cyberpunk Style Guide */
         :root {
@@ -33,7 +33,7 @@
 
         .header-container {
             max-width: 1100px;
-            margin: 0 auto 60px auto;
+            margin: 0 auto 40px auto;
             border-bottom: 1px dashed var(--border-color);
             padding-bottom: 30px;
         }
@@ -60,6 +60,49 @@
             font-size: 15px;
         }
 
+        /* Pirxcy Style File Upload / Dropbox Area */
+        .dropbox-container {
+            max-width: 1100px;
+            margin: 0 auto 50px auto;
+        }
+
+        .dropbox-title {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .dropbox-area {
+            border: 2px dashed var(--border-color);
+            background-color: var(--card-bg);
+            border-radius: 6px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .dropbox-area:hover {
+            border-color: var(--border-hover);
+            background-color: #141418;
+        }
+
+        .dropbox-text-main {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .dropbox-text-sub {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Content Grid */
         .grid-container {
             max-width: 1100px;
             margin: 0 auto;
@@ -73,6 +116,8 @@
             border: 1px solid var(--border-color);
             border-radius: 4px;
             padding: 24px;
+            display: flex;
+            flex-direction: column;
             transition: border-color 0.2s ease, transform 0.2s ease;
         }
 
@@ -90,6 +135,27 @@
             display: inline-block;
             margin-bottom: 16px;
             text-transform: uppercase;
+            align-self: flex-start;
+        }
+
+        /* Image Display Window */
+        .texture-preview-window {
+            width: 100%;
+            height: 180px;
+            background-color: #050507;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .texture-preview-window img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .texture-title {
@@ -114,6 +180,7 @@
         .btn-layout {
             display: flex;
             gap: 10px;
+            margin-top: auto;
         }
 
         .action-btn {
@@ -161,11 +228,21 @@
 </head>
 <body>
 
-    <!-- Header Section mirroring pirxcy layout structures -->
+    <!-- Header Section -->
     <div class="header-container">
         <div class="site-meta">◈ FLINKOBIZ.DEV // RIVALS MODDING ASSETS ◈</div>
         <h1>Texture Repository</h1>
-        <div class="subtitle">Direct CDN-compatible links for Fleasion profile injections. Click paths to select.</div>
+        <div class="subtitle">Direct CDN-compatible links for Fleasion profile injections. Click paths to copy.</div>
+    </div>
+
+    <!-- Pirxcy Style Dropbox Zone -->
+    <div class="dropbox-container">
+        <div class="dropbox-title">01 / Dropbox Manager</div>
+        <div class="dropbox-area" id="dropzone" onclick="document.getElementById('fileInput').click()">
+            <div class="dropbox-text-main">Drop texture files here, or click to browse</div>
+            <div class="dropbox-text-sub">JPG · PNG · TXT — Drag assets here to view or reference locally</div>
+            <input type="file" id="fileInput" style="display: none;" multiple>
+        </div>
     </div>
 
     <!-- Main Grid Array for items -->
@@ -174,6 +251,10 @@
         <!-- ITEM BOX 1: Metal Laboratory Floor -->
         <div class="texture-card">
             <span class="card-tag">Arena -> Build / URL</span>
+            <div class="texture-preview-window">
+                <!-- Points directly to your image file inside your folder -->
+                <img src="Metal_Texture.jpg" alt="SCP Metal Floor Preview" onerror="this.style.display='none'; this.parentNode.innerText='IMAGE NOT FOUND IN FOLDER';">
+            </div>
             <div class="texture-title">SCP Metal Floor Tile</div>
             <div class="url-box" id="url1">Metal_Texture.jpg</div>
             <div class="btn-layout">
@@ -185,6 +266,9 @@
         <!-- ITEM BOX 2: Optional Second Asset Template Slot -->
         <div class="texture-card">
             <span class="card-tag">Skybox / URL</span>
+            <div class="texture-preview-window">
+                <img src="Nebula_Sky.png" alt="Custom Nebula Preview" onerror="this.style.display='none'; this.parentNode.innerText='IMAGE NOT FOUND IN FOLDER';">
+            </div>
             <div class="texture-title">Custom Nebula Sky Block</div>
             <div class="url-box" id="url2">Nebula_Sky.png</div>
             <div class="btn-layout">
@@ -208,6 +292,17 @@
             navigator.clipboard.writeText(fullRawPath);
             alert(`Copied direct Fleasion URL:\n${fullRawPath}`);
         }
-    </script>
-</body>
-</html>
+
+        // Add visual Drag and Drop handlers for the box
+        const dropzone = document.getElementById('dropzone');
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropzone.style.borderColor = "var(--accent-color)";
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();

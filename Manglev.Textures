@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEXTURE DEPOT // RIVALS PACK ASSETS</title>
+    <style>
+        /* Pirxcy Minimal Cyberpunk Style Guide */
+        :root {
+            --bg-color: #0a0a0c;
+            --card-bg: #111114;
+            --border-color: #26262b;
+            --border-hover: #4a4a52;
+            --text-main: #f4f4f5;
+            --text-muted: #71717a;
+            --accent-color: #3b82f6;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 40px 20px;
+            line-height: 1.5;
+        }
+
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto 60px auto;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .site-meta {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent-color);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .grid-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .texture-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 24px;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .texture-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+
+        .card-tag {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 2px 6px;
+            display: inline-block;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .texture-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .url-box {
+            background-color: #050507;
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: #a1a1aa;
+            word-break: break-all;
+            margin-bottom: 16px;
+            border-radius: 4px;
+            user-select: all;
+        }
+
+        .btn-layout {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            flex: 1;
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .action-btn:hover {
+            background-color: #18181b;
+            border-color: var(--border-hover);
+        }
+
+        .primary-btn {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            border: 1px solid var(--text-main);
+        }
+
+        .primary-btn:hover {
+            background-color: #e4e4e7;
+            border-color: #e4e4e7;
+        }
+
+        footer {
+            max-width: 1100px;
+            margin: 80px auto 0 auto;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 20px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section mirroring pirxcy layout structures -->
+    <div class="header-container">
+        <div class="site-meta">◈ FLINKOBIZ.DEV // RIVALS MODDING ASSETS ◈</div>
+        <h1>Texture Repository</h1>
+        <div class="subtitle">Direct CDN-compatible links for Fleasion profile injections. Click paths to select.</div>
+    </div>
+
+    <!-- Main Grid Array for items -->
+    <div class="grid-container">
+
+        <!-- ITEM BOX 1: Metal Laboratory Floor -->
+        <div class="texture-card">
+            <span class="card-tag">Arena -> Build / URL</span>
+            <div class="texture-title">SCP Metal Floor Tile</div>
+            <div class="url-box" id="url1">Metal_Texture.jpg</div>
+            <div class="btn-layout">
+                <button class="action-btn primary-btn" onclick="copyRoute('url1')">Copy Link</button>
+                <a href="Metal_Texture.jpg" target="_blank" class="action-btn">View Asset</a>
+            </div>
+        </div>
+
+        <!-- ITEM BOX 2: Optional Second Asset Template Slot -->
+        <div class="texture-card">
+            <span class="card-tag">Skybox / URL</span>
+            <div class="texture-title">Custom Nebula Sky Block</div>
+            <div class="url-box" id="url2">Nebula_Sky.png</div>
+            <div class="btn-layout">
+                <button class="action-btn primary-btn" onclick="copyRoute('url2')">Copy Link</button>
+                <a href="Nebula_Sky.png" target="_blank" class="action-btn">View Asset</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        POWERED BY CLOUDFLARE PAGES GENERATION SYSTEM
+    </footer>
+
+    <script>
+        function copyRoute(containerId) {
+            const currentDomain = window.location.origin;
+            const fileName = document.getElementById(containerId).innerText;
+            const fullRawPath = `${currentDomain}/${fileName}`;
+            
+            navigator.clipboard.writeText(fullRawPath);
+            alert(`Copied direct Fleasion URL:\n${fullRawPath}`);
+        }
+    </script>
+</body>
+</html>

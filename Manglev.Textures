@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Rivals Assets // RIVALS PACK ASSETS</title>
+    <title>TEXTURES // RIVALS PACKS & ASSETS</title>
     <style>
-        /* Pirxcy Minimal Cyberpunk Style Guide */
+        /* Pirxcy Minimal Cyberpunk Style Guide - RED EDITION */
         :root {
-            --bg-color: #0a0a0c;
-            --card-bg: #111114;
-            --border-color: #26262b;
-            --border-hover: #4a4a52;
-            --text-main: #f4f4f5;
-            --text-muted: #71717a;
-            --accent-color: #3b82f6;
+            --bg-color: #0c0a0a;
+            --card-bg: #141111;
+            --border-color: #2b2626;
+            --border-hover: #524a4a;
+            --text-main: #f5f4f4;
+            --text-muted: #7a7171;
+            --accent-color: #ef4444; /* VIBRANT RED ACCENT */
             --font-mono: 'Courier New', Courier, monospace;
         }
 
@@ -33,7 +33,7 @@
 
         .header-container {
             max-width: 1100px;
-            margin: 0 auto 40px auto;
+            margin: 0 auto 50px auto;
             border-bottom: 1px dashed var(--border-color);
             padding-bottom: 30px;
         }
@@ -60,49 +60,6 @@
             font-size: 15px;
         }
 
-        /* Pirxcy Style File Upload / Dropbox Area */
-        .dropbox-container {
-            max-width: 1100px;
-            margin: 0 auto 50px auto;
-        }
-
-        .dropbox-title {
-            font-family: var(--font-mono);
-            font-size: 14px;
-            color: var(--text-main);
-            text-transform: uppercase;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
-        }
-
-        .dropbox-area {
-            border: 2px dashed var(--border-color);
-            background-color: var(--card-bg);
-            border-radius: 6px;
-            padding: 40px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: border-color 0.2s, background-color 0.2s;
-        }
-
-        .dropbox-area:hover {
-            border-color: var(--border-hover);
-            background-color: #141418;
-        }
-
-        .dropbox-text-main {
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 6px;
-        }
-
-        .dropbox-text-sub {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* Content Grid */
         .grid-container {
             max-width: 1100px;
             margin: 0 auto;
@@ -122,14 +79,14 @@
         }
 
         .texture-card:hover {
-            border-color: var(--border-hover);
+            border-color: var(--accent-color); /* Glow red on hover */
             transform: translateY(-2px);
         }
 
         .card-tag {
             font-family: var(--font-mono);
             font-size: 11px;
-            color: var(--text-muted);
+            color: var(--accent-color);
             border: 1px solid var(--border-color);
             padding: 2px 6px;
             display: inline-block;
@@ -138,11 +95,10 @@
             align-self: flex-start;
         }
 
-        /* Image Display Window */
         .texture-preview-window {
             width: 100%;
             height: 180px;
-            background-color: #050507;
+            background-color: #070505;
             border: 1px solid var(--border-color);
             border-radius: 4px;
             margin-bottom: 16px;
@@ -165,12 +121,12 @@
         }
 
         .url-box {
-            background-color: #050507;
+            background-color: #070505;
             border: 1px solid var(--border-color);
             padding: 12px;
             font-family: var(--font-mono);
             font-size: 12px;
-            color: #a1a1aa;
+            color: #aaa1a1;
             word-break: break-all;
             margin-bottom: 16px;
             border-radius: 4px;
@@ -199,19 +155,19 @@
         }
 
         .action-btn:hover {
-            background-color: #18181b;
+            background-color: #1b1818;
             border-color: var(--border-hover);
         }
 
         .primary-btn {
-            background-color: var(--text-main);
-            color: var(--bg-color);
-            border: 1px solid var(--text-main);
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border: 1px solid var(--accent-color);
         }
 
         .primary-btn:hover {
-            background-color: #e4e4e7;
-            border-color: #e4e4e7;
+            background-color: #dc2626;
+            border-color: #dc2626;
         }
 
         footer {
@@ -228,55 +184,15 @@
 </head>
 <body>
 
-    <!-- Header Section -->
     <div class="header-container">
         <div class="site-meta">◈ FLINKOBIZ.DEV // RIVALS MODDING ASSETS ◈</div>
         <h1>Texture Repository</h1>
-        <div class="subtitle">Direct CDN-compatible links for Fleasion profile injections. Click paths to copy.</div>
+        <div class="subtitle">Direct clean links for Fleasion profile injections. Click path box or button to copy.</div>
     </div>
 
-    <!-- Pirxcy Style Dropbox Zone -->
-    <div class="dropbox-container">
-        <div class="dropbox-title">01 / Dropbox Manager</div>
-        <div class="dropbox-area" id="dropzone" onclick="document.getElementById('fileInput').click()">
-            <div class="dropbox-text-main">Drop texture files here, or click to browse</div>
-            <div class="dropbox-text-sub">JPG · PNG · TXT — Drag assets here to view or reference locally</div>
-            <input type="file" id="fileInput" style="display: none;" multiple>
-        </div>
-    </div>
-
-    <!-- Main Grid Array for items -->
-    <div class="grid-container">
-
-        <!-- ITEM BOX 1: Metal Laboratory Floor -->
-        <div class="texture-card">
-            <span class="card-tag">Arena -> Build / URL</span>
-            <div class="texture-preview-window">
-                <!-- Points directly to your image file inside your folder -->
-                <img src="Metal_Texture.jpg" alt="SCP Metal Floor Preview" onerror="this.style.display='none'; this.parentNode.innerText='IMAGE NOT FOUND IN FOLDER';">
-            </div>
-            <div class="texture-title">SCP Metal Floor Tile</div>
-            <div class="url-box" id="url1">Metal_Texture.jpg</div>
-            <div class="btn-layout">
-                <button class="action-btn primary-btn" onclick="copyRoute('url1')">Copy Link</button>
-                <a href="Metal_Texture.jpg" target="_blank" class="action-btn">View Asset</a>
-            </div>
-        </div>
-
-        <!-- ITEM BOX 2: Optional Second Asset Template Slot -->
-        <div class="texture-card">
-            <span class="card-tag">Skybox / URL</span>
-            <div class="texture-preview-window">
-                <img src="Nebula_Sky.png" alt="Custom Nebula Preview" onerror="this.style.display='none'; this.parentNode.innerText='IMAGE NOT FOUND IN FOLDER';">
-            </div>
-            <div class="texture-title">Custom Nebula Sky Block</div>
-            <div class="url-box" id="url2">Nebula_Sky.png</div>
-            <div class="btn-layout">
-                <button class="action-btn primary-btn" onclick="copyRoute('url2')">Copy Link</button>
-                <a href="Nebula_Sky.png" target="_blank" class="action-btn">View Asset</a>
-            </div>
-        </div>
-
+    <!-- Clean Repository Grid Area -->
+    <div class="grid-container" id="gridContainer">
+        <!-- THE AUTOMATIC LOADING SCRIPT BENEATH THIS WILL POPULATE THIS SPACE WITH YOUR CARD LIST -->
     </div>
 
     <footer>
@@ -284,25 +200,62 @@
     </footer>
 
     <script>
-        function copyRoute(containerId) {
-            const currentDomain = window.location.origin;
-            const fileName = document.getElementById(containerId).innerText;
-            const fullRawPath = `${currentDomain}/${fileName}`;
+        /*******************************************************************************
+         * 🛑 READ THIS! HERE IS THE OBVIOUS SPOT TO PUT YOUR FILES AND LINK NAMES! 🛑
+         * 
+         * To add, edit, or remove your texture cards, simply change the list below. 
+         * Follow the exact template format:
+         * 
+         *   { name: "DISPLAY NAME", file: "FILENAME.jpg", type: "FLEASION CONFIG TARGET" },
+         * 
+         *******************************************************************************/
+        const MY_TEXTURE_LIST = [
             
-            navigator.clipboard.writeText(fullRawPath);
-            alert(`Copied direct Fleasion URL:\n${fullRawPath}`);
-        }
+            { 
+                name: "SCP Metal Texture", 
+                file: "https://raw.githubusercontent.com/flinkobiz-creator/My-Texture-Packs-For-Rivals/refs/heads/main/Metal%20Texture.jpg"
+            }
+            
+            { 
+                name: "Custom Sky Sky", 
+                file: "https://raw.githubusercontent.com/flinkobiz-creator/My-Texture-Packs-For-Rivals/refs/heads/main/pirxcy_skybox_spread.zip"
+            }
 
-        // Add visual Drag and Drop handlers for the box
-        const dropzone = document.getElementById('dropzone');
+            { 
+                name: "Typewriter Font", 
+                file: "https://raw.githubusercontent.com/flinkobiz-creator/My-Texture-Packs-For-Rivals/refs/heads/main/TypewriterPg-p3o1.ttf"
+            }
+
+            // 💡 You can paste more rows right here following the exact same layout!
+            
+        ];
+        /*******************************************************************************
+         * 🛑 END OF THE EDIT BOX SECTION - DO NOT TOUCH THE ENGINE SCRIPT BELOW 🛑
+         *******************************************************************************/
+
+        // Automated execution engine that prints your choices directly to the clean web view
+        const gridContainer = document.getElementById('gridContainer');
         
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropzone.addEventListener(eventName, (e) => {
-                e.preventDefault();
-                dropzone.style.borderColor = "var(--accent-color)";
-            }, false);
-        });
+        MY_TEXTURE_LIST.forEach((item) => {
+            const card = document.createElement('div');
+            card.className = 'texture-card';
+            
+            const cleanDomainPath = `${window.location.origin}/${item.file}`;
 
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropzone.addEventListener(eventName, (e) => {
-                e.preventDefault();
+            card.innerHTML = `
+                <span class="card-tag">${item.type}</span>
+                <div class="texture-preview-window">
+                    <img src="${item.file}" alt="${item.name}" onerror="this.style.display='none'; this.parentNode.innerText='NO IMAGE FILE IN CLOUDFLARE FOLDER';">
+                </div>
+                <div class="texture-title">${item.name}</div>
+                <div class="url-box">${cleanDomainPath}</div>
+                <div class="btn-layout">
+                    <button class="primary-btn action-btn" onclick="navigator.clipboard.writeText('${cleanDomainPath}'); alert('Copied clean Fleasion URL:\\n${cleanDomainPath}');">Copy Link</button>
+                    <a href="${item.file}" target="_blank" class="action-btn">View Full</a>
+                </div>
+            `;
+            gridContainer.appendChild(card);
+        });
+    </script>
+</body>
+</html>

@@ -5,551 +5,613 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TEXTURES // RIVALS PACKS & ASSETS</title>
     <style>
-        /* Pirxcy Minimal Cyberpunk Style Guide - RED EDITION */
+        /* ===== CYBERPUNK RED EDITION ===== */
         :root {
-            --bg-color: #0c0a0a;
-            --card-bg: #141111;
-            --border-color: #2b2626;
-            --border-hover: #524a4a;
-            --text-main: #f5f4f4;
-            --text-muted: #7a7171;
+            --bg-color: #080707;
+            --bg-elevated: #0e0c0c;
+            --card-bg: #131010;
+            --card-hover: #1a1616;
+            --border-color: #252020;
+            --border-hover: #3d3636;
+            --text-main: #f0eeee;
+            --text-muted: #6b6262;
+            --text-dim: #4a4242;
             --accent-color: #ef4444;
+            --accent-glow: rgba(239,68,68,0.15);
+            --accent-dim: rgba(239,68,68,0.4);
             --font-mono: 'Courier New', Courier, monospace;
+            --font-sans: system-ui, -apple-system, sans-serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: system-ui, -apple-system, sans-serif;
-            padding: 40px 20px;
+            font-family: var(--font-sans);
+            padding: 0;
             line-height: 1.5;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .header-container {
-            max-width: 1100px; margin: 0 auto 50px auto;
-            border-bottom: 1px dashed var(--border-color); padding-bottom: 30px;
+        body::before {
+            content: '';
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.008) 2px, rgba(255,255,255,0.008) 4px);
+            pointer-events: none; z-index: 1;
         }
 
-        .site-meta {
-            font-family: var(--font-mono); font-size: 12px;
-            color: var(--accent-color); letter-spacing: 2px;
-            margin-bottom: 10px; text-transform: uppercase;
+        body::after {
+            content: '';
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.5) 100%);
+            pointer-events: none; z-index: 1;
         }
 
-        h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; text-transform: uppercase; }
-        .subtitle { color: var(--text-muted); font-size: 15px; }
+        .page-wrap { position: relative; z-index: 2; }
 
-        .grid-container {
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            position: relative; padding: 60px 20px;
+            background: radial-gradient(ellipse at 50% 30%, rgba(239,68,68,0.06) 0%, transparent 60%);
+        }
+
+        .hero-grid-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image:
+                linear-gradient(rgba(239,68,68,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(239,68,68,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content { text-align: center; position: relative; z-index: 2; }
+
+        .hero-badge {
+            font-family: var(--font-mono); font-size: 11px;
+            color: var(--accent-color); letter-spacing: 4px;
+            text-transform: uppercase; margin-bottom: 24px;
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 8px 20px; border: 1px solid var(--border-color);
+            border-radius: 2px; background: rgba(19,16,16,0.6);
+            backdrop-filter: blur(6px);
+        }
+        .hero-badge::before {
+            content: ''; width: 6px; height: 6px; border-radius: 50%;
+            background: var(--accent-color); box-shadow: 0 0 8px var(--accent-color);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 88px); font-weight: 900;
+            letter-spacing: -2px; line-height: 0.95;
+            text-transform: uppercase; margin-bottom: 16px;
+            background: linear-gradient(180deg, #f5f4f4 0%, #8a7a7a 100%);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            color: var(--text-muted); font-size: 16px;
+            font-family: var(--font-mono); max-width: 500px;
+            margin: 0 auto 40px auto; line-height: 1.6;
+        }
+
+        .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+        .cta-btn {
+            padding: 14px 32px; font-family: var(--font-mono); font-size: 13px;
+            text-transform: uppercase; letter-spacing: 2px;
+            border-radius: 2px; cursor: pointer; text-decoration: none;
+            transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .cta-primary { background: var(--accent-color); color: #fff; border: 1px solid var(--accent-color); }
+        .cta-primary:hover { background: #dc2626; box-shadow: 0 0 24px var(--accent-glow); transform: translateY(-1px); }
+        .cta-secondary { background: transparent; color: var(--text-main); border: 1px solid var(--border-color); }
+        .cta-secondary:hover { border-color: var(--accent-color); color: var(--accent-color); }
+
+        .scroll-indicator {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            font-family: var(--font-mono); font-size: 10px; color: var(--text-dim);
+            text-transform: uppercase; letter-spacing: 2px;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+        }
+        .scroll-indicator-line {
+            width: 1px; height: 40px;
+            background: linear-gradient(180deg, var(--accent-color), transparent);
+            animation: scroll-line 2s ease-in-out infinite;
+        }
+        @keyframes scroll-line {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            51% { transform: scaleY(1); transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        /* ===== STATUS BAR ===== */
+        .status-bar {
+            max-width: 1100px; margin: 0 auto; padding: 20px;
+            display: flex; gap: 32px; flex-wrap: wrap;
+            font-family: var(--font-mono); font-size: 11px;
+            color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .status-bar span { display: flex; align-items: center; gap: 6px; }
+        .status-bar .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent-color); display: inline-block; }
+        .status-bar .dot.green { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
+
+        /* ===== SECTIONS ===== */
+        .section {
             max-width: 1100px; margin: 0 auto;
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;
+            padding: 80px 20px;
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
+        .section.visible { opacity: 1; transform: translateY(0); }
+
+        .section-header { margin-bottom: 40px; }
+        .section-label { font-family: var(--font-mono); font-size: 11px; color: var(--accent-color); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+        .section-title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; }
+        .section-desc { color: var(--text-muted); font-size: 14px; font-family: var(--font-mono); margin-top: 8px; }
+
+        /* ===== GRID ===== */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
 
         .texture-card {
             background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 4px; padding: 24px; display: flex; flex-direction: column;
-            transition: border-color 0.2s ease, transform 0.2s ease;
+            border-radius: 2px; padding: 0; display: flex; flex-direction: column;
+            transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+            overflow: hidden; position: relative;
         }
-        .texture-card:hover { border-color: var(--accent-color); transform: translateY(-2px); }
+        .texture-card:hover { border-color: var(--accent-color); background-color: var(--card-hover); box-shadow: 0 0 24px var(--accent-glow); }
+
+        .card-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
 
         .card-tag {
-            font-family: var(--font-mono); font-size: 11px; color: var(--accent-color);
-            border: 1px solid var(--border-color); padding: 2px 6px;
-            display: inline-block; margin-bottom: 16px; text-transform: uppercase; align-self: flex-start;
+            font-family: var(--font-mono); font-size: 10px; color: var(--accent-color);
+            border: 1px solid var(--border-color); padding: 2px 8px;
+            display: inline-block; margin-bottom: 14px;
+            text-transform: uppercase; letter-spacing: 1px; align-self: flex-start;
         }
 
         .texture-preview-window {
-            width: 100%; height: 180px; background-color: #070505;
-            border: 1px solid var(--border-color); border-radius: 4px;
-            margin-bottom: 16px; overflow: hidden; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; position: relative;
+            width: 100%; height: 200px; background-color: #060505;
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; position: relative; transition: border-color 0.25s;
         }
-        .texture-preview-window:hover { border-color: var(--accent-color); }
-        .texture-preview-window img { width: 100%; height: 100%; object-fit: cover; }
+        .texture-card:hover .texture-preview-window { border-bottom-color: var(--accent-color); }
+        .texture-preview-window img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .texture-card:hover .texture-preview-window img { transform: scale(1.05); }
 
         .preview-hint {
-            position: absolute; bottom: 8px; right: 8px;
-            font-family: var(--font-mono); font-size: 10px;
-            color: var(--accent-color); background: rgba(12,10,10,0.85);
-            padding: 3px 8px; border-radius: 3px; text-transform: uppercase;
+            position: absolute; bottom: 10px; right: 10px;
+            font-family: var(--font-mono); font-size: 9px;
+            color: var(--accent-color); background: rgba(8,7,7,0.9);
+            padding: 4px 10px; border: 1px solid var(--accent-dim);
+            text-transform: uppercase; letter-spacing: 1px;
             opacity: 0; transition: opacity 0.2s;
         }
         .texture-preview-window:hover .preview-hint { opacity: 1; }
 
-        .skybox-mini-cube {
-            width: 80px; height: 80px;
-            transform-style: preserve-3d;
-            animation: mini-spin 8s linear infinite;
-        }
+        .skybox-mini-cube { width: 70px; height: 70px; transform-style: preserve-3d; animation: mini-spin 8s linear infinite; }
         .skybox-mini-cube div {
-            position: absolute; width: 80px; height: 80px;
+            position: absolute; width: 70px; height: 70px;
             background: linear-gradient(135deg, #1a1515, #0c0a0a);
             border: 1px solid var(--border-color);
             display: flex; align-items: center; justify-content: center;
-            font-family: var(--font-mono); font-size: 9px; color: var(--accent-color);
+            font-family: var(--font-mono); font-size: 8px; color: var(--accent-color);
         }
-        .skybox-mini-cube div:nth-child(1) { transform: translateZ(40px); }
-        .skybox-mini-cube div:nth-child(2) { transform: rotateY(180deg) translateZ(40px); }
-        .skybox-mini-cube div:nth-child(3) { transform: rotateY(90deg) translateZ(40px); }
-        .skybox-mini-cube div:nth-child(4) { transform: rotateY(-90deg) translateZ(40px); }
-        .skybox-mini-cube div:nth-child(5) { transform: rotateX(90deg) translateZ(40px); }
-        .skybox-mini-cube div:nth-child(6) { transform: rotateX(-90deg) translateZ(40px); }
+        .skybox-mini-cube div:nth-child(1) { transform: translateZ(35px); }
+        .skybox-mini-cube div:nth-child(2) { transform: rotateY(180deg) translateZ(35px); }
+        .skybox-mini-cube div:nth-child(3) { transform: rotateY(90deg) translateZ(35px); }
+        .skybox-mini-cube div:nth-child(4) { transform: rotateY(-90deg) translateZ(35px); }
+        .skybox-mini-cube div:nth-child(5) { transform: rotateX(90deg) translateZ(35px); }
+        .skybox-mini-cube div:nth-child(6) { transform: rotateX(-90deg) translateZ(35px); }
+        @keyframes mini-spin { from { transform: rotateX(-20deg) rotateY(0deg); } to { transform: rotateX(-20deg) rotateY(360deg); } }
 
-        @keyframes mini-spin {
-            from { transform: rotateX(-20deg) rotateY(0deg); }
-            to { transform: rotateX(-20deg) rotateY(360deg); }
-        }
-
-        .texture-title { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+        .texture-title { font-size: 17px; font-weight: 600; margin-bottom: 10px; letter-spacing: -0.3px; }
 
         .url-box {
-            background-color: #070505; border: 1px solid var(--border-color); padding: 12px;
-            font-family: var(--font-mono); font-size: 12px; color: #aaa1a1;
-            word-break: break-all; margin-bottom: 16px; border-radius: 4px; user-select: all;
+            background-color: #060505; border: 1px solid var(--border-color);
+            padding: 10px 12px; font-family: var(--font-mono); font-size: 11px;
+            color: #8a8181; word-break: break-all; margin-bottom: 14px;
+            border-radius: 2px; user-select: all; line-height: 1.4;
         }
 
-        .btn-layout { display: flex; gap: 10px; margin-top: auto; }
+        .btn-layout { display: flex; gap: 8px; margin-top: auto; }
 
         .action-btn {
             flex: 1; background-color: transparent; border: 1px solid var(--border-color);
-            color: var(--text-main); padding: 10px; font-size: 13px; font-weight: 500;
-            text-align: center; text-decoration: none; border-radius: 4px; cursor: pointer;
-            transition: background-color 0.2s, border-color 0.2s;
+            color: var(--text-main); padding: 9px; font-size: 12px; font-weight: 500;
+            text-align: center; text-decoration: none; border-radius: 2px; cursor: pointer;
+            transition: all 0.2s; font-family: var(--font-mono);
+            text-transform: uppercase; letter-spacing: 0.5px;
         }
-        .action-btn:hover { background-color: #1b1818; border-color: var(--border-hover); }
+        .action-btn:hover { background-color: #1a1616; border-color: var(--border-hover); color: var(--accent-color); }
+        .primary-btn { background-color: var(--accent-color); color: #fff; border: 1px solid var(--accent-color); }
+        .primary-btn:hover { background-color: #dc2626; border-color: #dc2626; color: #fff; }
 
-        .primary-btn { background-color: var(--accent-color); color: #ffffff; border: 1px solid var(--accent-color); }
-        .primary-btn:hover { background-color: #dc2626; border-color: #dc2626; }
+        /* ===== SKYBOX GENERATOR ===== */
+        .generator-panel { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 2px; padding: 32px; margin-top: 20px; }
+        .gen-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        @media (max-width: 768px) { .gen-layout { grid-template-columns: 1fr; } }
 
+        .gen-inputs { display: flex; flex-direction: column; gap: 16px; }
+        .gen-face-row { display: flex; align-items: center; gap: 12px; }
+        .gen-face-label { font-family: var(--font-mono); font-size: 11px; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; width: 70px; flex-shrink: 0; }
+        .gen-face-input {
+            flex: 1; background: #060505; border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 10px 12px; font-family: var(--font-mono);
+            font-size: 12px; border-radius: 2px; transition: border-color 0.2s;
+        }
+        .gen-face-input:focus { outline: none; border-color: var(--accent-color); }
+        .gen-face-input::placeholder { color: var(--text-dim); }
+
+        .gen-upload-btn {
+            background: transparent; border: 1px solid var(--border-color);
+            color: var(--text-muted); padding: 8px 12px; font-family: var(--font-mono);
+            font-size: 10px; cursor: pointer; border-radius: 2px; text-transform: uppercase;
+            transition: all 0.2s; white-space: nowrap;
+        }
+        .gen-upload-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
+
+        .gen-actions { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+
+        .gen-preview-side {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            min-height: 300px; background: #060505; border: 1px solid var(--border-color);
+            border-radius: 2px; padding: 20px; position: relative;
+        }
+
+        .gen-cube-container { perspective: 800px; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; cursor: grab; }
+        .gen-cube-container:active { cursor: grabbing; }
+        .gen-cube { width: 150px; height: 150px; position: relative; transform-style: preserve-3d; transform: rotateX(-15deg) rotateY(20deg); transition: transform 0.05s linear; }
+        .gen-cube-face {
+            position: absolute; width: 150px; height: 150px;
+            background: linear-gradient(135deg, #1a1515, #0c0a0a);
+            border: 1px solid var(--border-color);
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .gen-cube-face-label { font-family: var(--font-mono); font-size: 10px; color: var(--accent-dim); text-transform: uppercase; letter-spacing: 1px; }
+        .gen-cube-face.front  { transform: translateZ(75px); }
+        .gen-cube-face.back   { transform: rotateY(180deg) translateZ(75px); }
+        .gen-cube-face.right  { transform: rotateY(90deg) translateZ(75px); }
+        .gen-cube-face.left   { transform: rotateY(-90deg) translateZ(75px); }
+        .gen-cube-face.top    { transform: rotateX(90deg) translateZ(75px); }
+        .gen-cube-face.bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+        .gen-cube-controls { margin-top: 20px; display: flex; gap: 8px; }
+        .gen-cube-controls button {
+            background: transparent; border: 1px solid var(--border-color); color: var(--text-main);
+            padding: 8px 16px; font-family: var(--font-mono); font-size: 10px;
+            cursor: pointer; border-radius: 2px; text-transform: uppercase; letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .gen-cube-controls button:hover { border-color: var(--accent-color); color: var(--accent-color); }
+        .gen-cube-controls button.active { background: var(--accent-color); border-color: var(--accent-color); color: #fff; }
+
+        .gen-output {
+            margin-top: 20px; width: 100%;
+            background: #060505; border: 1px solid var(--border-color);
+            padding: 12px; font-family: var(--font-mono); font-size: 11px;
+            color: #8a8181; border-radius: 2px; word-break: break-all; line-height: 1.5;
+            min-height: 60px; max-height: 120px; overflow-y: auto;
+        }
+
+        /* ===== FOOTER ===== */
         footer {
-            max-width: 1100px; margin: 80px auto 0 auto;
-            border-top: 1px dashed var(--border-color); padding-top: 20px;
-            font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); text-align: center;
+            border-top: 1px solid var(--border-color); padding: 40px 20px;
+            font-family: var(--font-mono); font-size: 11px;
+            color: var(--text-muted); text-align: center;
+            letter-spacing: 1px; text-transform: uppercase;
         }
 
-        /* ===== PANORAMA MODAL ===== */
+        /* ===== SKY MODAL ===== */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #050404; z-index: 9999;
+            background: #030202; z-index: 9999;
             align-items: center; justify-content: center; flex-direction: column;
         }
         .modal-overlay.active { display: flex; }
 
         .modal-close {
             position: absolute; top: 16px; right: 24px;
-            font-size: 24px; color: var(--text-muted); cursor: pointer;
+            font-size: 14px; color: var(--text-muted); cursor: pointer;
             transition: color 0.2s; user-select: none; z-index: 10001;
-            font-family: var(--font-mono);
+            font-family: var(--font-mono); padding: 8px 16px;
+            border: 1px solid var(--border-color); border-radius: 2px;
+            background: rgba(8,7,7,0.8); backdrop-filter: blur(6px);
         }
-        .modal-close:hover { color: var(--accent-color); }
+        .modal-close:hover { color: var(--accent-color); border-color: var(--accent-color); }
 
         .modal-title {
             position: absolute; top: 20px; left: 24px;
             font-family: var(--font-mono); font-size: 12px; color: var(--accent-color);
             text-transform: uppercase; letter-spacing: 2px; z-index: 10001;
+            padding: 8px 16px; border: 1px solid var(--border-color); border-radius: 2px;
+            background: rgba(8,7,7,0.8); backdrop-filter: blur(6px);
         }
 
-        .pano-viewer {
-            width: 100%; height: 100%;
-            perspective: 900px; perspective-origin: 50% 50%;
-            overflow: hidden; cursor: grab;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .pano-viewer:active { cursor: grabbing; }
+        .sky-viewer { width: 100%; height: 100%; perspective: 600px; perspective-origin: 50% 50%; overflow: hidden; cursor: grab; display: flex; align-items: center; justify-content: center; }
+        .sky-viewer:active { cursor: grabbing; }
+        .sky-dome { position: relative; transform-style: preserve-3d; width: 1px; height: 1px; transform: rotateY(0deg) rotateX(0deg); transition: transform 0.05s linear; }
+        .sky-segment { position: absolute; background-size: cover; background-position: center; backface-visibility: hidden; }
 
-        .pano-cylinder {
-            position: relative;
-            transform-style: preserve-3d;
-            width: 1px; height: 1px;
-            transform: rotateY(0deg);
-            transition: transform 0.05s linear;
-        }
-
-        .pano-segment {
-            position: absolute;
-            background-size: cover; background-position: center;
-            backface-visibility: hidden;
-        }
-
-        .pano-controls {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 10px; z-index: 10001;
-        }
-        .pano-controls button {
-            background: rgba(12,10,10,0.85); border: 1px solid var(--border-color); color: var(--text-main);
+        .sky-controls { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10001; }
+        .sky-controls button {
+            background: rgba(8,7,7,0.85); border: 1px solid var(--border-color); color: var(--text-main);
             padding: 10px 18px; font-family: var(--font-mono); font-size: 11px;
-            cursor: pointer; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px;
-            transition: all 0.2s; backdrop-filter: blur(4px);
+            cursor: pointer; border-radius: 2px; text-transform: uppercase; letter-spacing: 1px;
+            transition: all 0.2s; backdrop-filter: blur(6px);
         }
-        .pano-controls button:hover { border-color: var(--accent-color); color: var(--accent-color); }
-        .pano-controls button.active {
-            background: var(--accent-color); border-color: var(--accent-color); color: #fff;
-        }
+        .sky-controls button:hover { border-color: var(--accent-color); color: var(--accent-color); }
+        .sky-controls button.active { background: var(--accent-color); border-color: var(--accent-color); color: #fff; }
 
-        .pano-info {
-            position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
-            font-family: var(--font-mono); font-size: 10px;
-            color: var(--text-muted); text-align: center; z-index: 10001;
-            letter-spacing: 1px; text-transform: uppercase;
-        }
+        .sky-info { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); text-align: center; z-index: 10001; letter-spacing: 1px; text-transform: uppercase; padding: 6px 16px; background: rgba(8,7,7,0.6); border-radius: 2px; backdrop-filter: blur(4px); }
 
-        .pano-compass {
-            position: absolute; top: 50px; left: 50%; transform: translateX(-50%);
-            font-family: var(--font-mono); font-size: 10px; color: var(--accent-color);
-            z-index: 10001; letter-spacing: 2px;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .pano-compass-bar {
-            width: 200px; height: 2px; background: var(--border-color); position: relative; overflow: hidden;
-        }
-        .pano-compass-fill {
-            position: absolute; top: 0; left: 0; height: 100%; width: 30%;
-            background: var(--accent-color); transition: left 0.05s linear;
-        }
+        .sky-compass { position: absolute; top: 60px; left: 50%; transform: translateX(-50%); font-family: var(--font-mono); font-size: 10px; color: var(--accent-color); z-index: 10001; letter-spacing: 2px; display: flex; align-items: center; gap: 8px; padding: 6px 16px; background: rgba(8,7,7,0.6); border-radius: 2px; backdrop-filter: blur(4px); }
+        .sky-compass-bar { width: 200px; height: 2px; background: var(--border-color); position: relative; overflow: hidden; }
+        .sky-compass-fill { position: absolute; top: 0; left: 0; height: 100%; width: 30%; background: var(--accent-color); transition: left 0.05s linear; }
 
-        /* ===== IMAGE PREVIEW MODAL ===== */
-        .image-preview-container {
-            max-width: 90vw; max-height: 80vh; border-radius: 4px;
-            border: 1px solid var(--border-color); overflow: hidden;
-        }
+        /* ===== IMAGE MODAL ===== */
+        .image-preview-container { max-width: 90vw; max-height: 80vh; border-radius: 2px; border: 1px solid var(--border-color); overflow: hidden; }
         .image-preview-container img { max-width: 100%; max-height: 80vh; display: block; }
 
-        /* ===== FONT PREVIEW MODAL ===== */
-        .font-preview-container {
-            max-width: 600px; text-align: center; padding: 40px;
-            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 4px;
-        }
-        .font-preview-container .font-sample {
-            font-size: 48px; margin-bottom: 20px; color: var(--text-main);
-        }
-        .font-preview-container .font-meta {
-            font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-        .font-preview-container .font-alphabet {
-            font-size: 20px; line-height: 1.8; color: var(--text-main);
-        }
+        /* ===== FONT MODAL ===== */
+        .font-preview-container { max-width: 600px; text-align: center; padding: 40px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 2px; }
+        .font-preview-container .font-sample { font-size: 48px; margin-bottom: 20px; color: var(--text-main); }
+        .font-preview-container .font-meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-bottom: 20px; letter-spacing: 1px; }
+        .font-preview-container .font-alphabet { font-size: 20px; line-height: 1.8; color: var(--text-main); }
     </style>
 </head>
 <body>
 
-    <div class="header-container">
-        <div class="site-meta">◈ FLINKOBIZ.DEV // RIVALS MODDING ASSETS ◈</div>
-        <h1>Texture Repository</h1>
-        <div class="subtitle">Direct clean links for Fleasion profile injections. Click path box or button to copy.</div>
+<div class="page-wrap">
+
+    <section class="hero">
+        <div class="hero-grid-bg"></div>
+        <div class="hero-content">
+            <div class="hero-badge">FLINKOBIZ.DEV // RIVALS MODDING ASSETS</div>
+            <h1>Texture<br>Repository</h1>
+            <p class="hero-sub">Direct clean links for Fleasion profile injections. Browse, preview, and generate skybox packs — all in one place.</p>
+            <div class="hero-cta">
+                <a href="#assets" class="cta-btn cta-primary">Browse Assets</a>
+                <a href="#generator" class="cta-btn cta-secondary">Skybox Generator</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-indicator-line"></div>
+        </div>
+    </section>
+
+    <div class="status-bar">
+        <span><span class="dot green"></span> SYSTEM ONLINE</span>
+        <span><span class="dot"></span> <span id="assetCount">0</span> ASSETS LOADED</span>
+        <span><span class="dot"></span> CLOUDFLARE EDGE</span>
+        <span><span class="dot"></span> <span id="genCount">0</span> SKYBOXES GENERATED</span>
     </div>
 
-    <div class="grid-container" id="gridContainer"></div>
+    <section class="section" id="assets">
+        <div class="section-header">
+            <div class="section-label">// 01 — ASSET LIBRARY</div>
+            <div class="section-title">Texture Packs & Assets</div>
+            <div class="section-desc">Click any preview to inspect. Skyboxes open in 360° viewer.</div>
+        </div>
+        <div class="grid-container" id="gridContainer"></div>
+    </section>
+
+    <section class="section" id="generator">
+        <div class="section-header">
+            <div class="section-label">// 02 — SKYBOX GENERATOR</div>
+            <div class="section-title">Build Your Skybox</div>
+            <div class="section-desc">Paste 6 face image URLs or upload images, preview the cube, then copy the generated config.</div>
+        </div>
+        <div class="generator-panel">
+            <div class="gen-layout">
+                <div class="gen-inputs">
+                    <div class="gen-face-row"><span class="gen-face-label">Front</span><input class="gen-face-input" id="genFront" placeholder="https://.../front.png" oninput="updateGenCube()"><button class="gen-upload-btn" onclick="genUpload('front')">Upload</button></div>
+                    <div class="gen-face-row"><span class="gen-face-label">Back</span><input class="gen-face-input" id="genBack" placeholder="https://.../back.png" oninput="updateGenCube()"><button class="gen-upload-btn" onclick="genUpload('back')">Upload</button></div>
+                    <div class="gen-face-row"><span class="gen-face-label">Left</span><input class="gen-face-input" id="genLeft" placeholder="https://.../left.png" oninput="updateGenCube()"><button class="gen-upload-btn" onclick="genUpload('left')">Upload</button></div>
+                    <div class="gen-face-row"><span class="gen-face-label">Right</span><input class="gen-face-input" id="genRight" placeholder="https://.../right.png" oninput="updateGenCube()"><button class="gen-upload-btn" onclick="genUpload('right')">Upload</button></div>
+                    <div class="gen-face-row"><span class="gen-face-label">Top</span><input class="gen-face-input" id="genTop" placeholder="https://.../top.png" oninput="updateGenCube()"><button class="gen-upload-btn" onclick="genUpload('top')">Upload</button></div>
+                    <div class="gen-face-row"><span class="gen-face-label">Bottom</span><input class="gen-face-input" id="genBottom" placeholder="https://.../bottom.png" oninput="updateGenCube()"><button class="gen-upload-btn" onclick="genUpload('bottom')">Upload</button></div>
+                    <div class="gen-actions">
+                        <button class="cta-btn cta-primary" onclick="generateSkybox()" style="padding:10px 24px;font-size:12px;">Generate Config</button>
+                        <button class="cta-btn cta-secondary" onclick="previewGenSkybox()" style="padding:10px 24px;font-size:12px;">Preview 360°</button>
+                        <button class="cta-btn cta-secondary" onclick="clearGen()" style="padding:10px 24px;font-size:12px;">Clear</button>
+                    </div>
+                    <div class="gen-output" id="genOutput">// Generated config will appear here...</div>
+                </div>
+                <div class="gen-preview-side">
+                    <div class="gen-cube-container">
+                        <div class="gen-cube" id="genCube">
+                            <div class="gen-cube-face front"><span class="gen-cube-face-label">FRONT</span></div>
+                            <div class="gen-cube-face back"><span class="gen-cube-face-label">BACK</span></div>
+                            <div class="gen-cube-face right"><span class="gen-cube-face-label">RIGHT</span></div>
+                            <div class="gen-cube-face left"><span class="gen-cube-face-label">LEFT</span></div>
+                            <div class="gen-cube-face top"><span class="gen-cube-face-label">TOP</span></div>
+                            <div class="gen-cube-face bottom"><span class="gen-cube-face-label">BOTTOM</span></div>
+                        </div>
+                    </div>
+                    <div class="gen-cube-controls">
+                        <button id="genAutoRotate" onclick="toggleGenAutoRotate()">Auto Rotate</button>
+                        <button onclick="resetGenCube()">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer>Powered By FlareTextures - By Manglev</footer>
+</div>
 
-    <!-- Panorama Modal -->
-    <div class="modal-overlay" id="skyboxModal">
-        <span class="modal-close" onclick="closeModal('skyboxModal')">[ ESC ]</span>
-        <div class="modal-title" id="skyboxModalTitle">PANORAMA PREVIEW</div>
-        <div class="pano-compass">
-            <span>N</span>
-            <div class="pano-compass-bar"><div class="pano-compass-fill" id="panoCompassFill"></div></div>
-            <span>S</span>
-        </div>
-        <div class="pano-viewer" id="panoViewer">
-            <div class="pano-cylinder" id="panoCylinder"></div>
-        </div>
-        <div class="pano-info" id="panoInfo">DRAG TO LOOK AROUND</div>
-        <div class="pano-controls">
-            <button id="panoAutoRotate" onclick="toggleAutoRotate()">Auto Rotate</button>
-            <button onclick="resetPanoView()">Reset View</button>
-        </div>
+<input type="file" id="genFileInput" accept="image/*" style="display:none;">
+
+<div class="modal-overlay" id="skyboxModal">
+    <span class="modal-close" onclick="closeModal('skyboxModal')">[ ESC ]</span>
+    <div class="modal-title" id="skyboxModalTitle">SKYBOX PREVIEW</div>
+    <div class="sky-compass"><span>N</span><div class="sky-compass-bar"><div class="sky-compass-fill" id="skyCompassFill"></div></div><span>S</span></div>
+    <div class="sky-viewer" id="skyViewer"><div class="sky-dome" id="skyDome"></div></div>
+    <div class="sky-info" id="skyInfo">DRAG TO LOOK AROUND</div>
+    <div class="sky-controls">
+        <button id="skyAutoRotate" onclick="toggleSkyAutoRotate()">Auto Rotate</button>
+        <button onclick="resetSkyView()">Reset View</button>
     </div>
+</div>
 
-    <!-- Image Preview Modal -->
-    <div class="modal-overlay" id="imageModal">
-        <span class="modal-close" onclick="closeModal('imageModal')">[ ESC ]</span>
-        <div class="modal-title" id="imageModalTitle">TEXTURE PREVIEW</div>
-        <div class="image-preview-container">
-            <img id="imagePreviewSrc" src="" alt="Preview">
-        </div>
+<div class="modal-overlay" id="imageModal">
+    <span class="modal-close" onclick="closeModal('imageModal')">[ ESC ]</span>
+    <div class="modal-title" id="imageModalTitle">TEXTURE PREVIEW</div>
+    <div class="image-preview-container"><img id="imagePreviewSrc" src="" alt="Preview"></div>
+</div>
+
+<div class="modal-overlay" id="fontModal">
+    <span class="modal-close" onclick="closeModal('fontModal')">[ ESC ]</span>
+    <div class="modal-title" id="fontModalTitle">FONT PREVIEW</div>
+    <div class="font-preview-container">
+        <div class="font-sample" id="fontSample">The quick brown fox</div>
+        <div class="font-meta" id="fontMeta"></div>
+        <div class="font-alphabet" id="fontAlphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789</div>
     </div>
+</div>
 
-    <!-- Font Preview Modal -->
-    <div class="modal-overlay" id="fontModal">
-        <span class="modal-close" onclick="closeModal('fontModal')">[ ESC ]</span>
-        <div class="modal-title" id="fontModalTitle">FONT PREVIEW</div>
-        <div class="font-preview-container">
-            <div class="font-sample" id="fontSample">The quick brown fox</div>
-            <div class="font-meta" id="fontMeta"></div>
-            <div class="font-alphabet" id="fontAlphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789</div>
-        </div>
-    </div>
+<script>
+    const MY_TEXTURE_LIST = [
+        { name: "SCP Metal Texture", file: "https://raw.githubusercontent.com/flinkobiz-creator/My-Texture-Packs-For-Rivals/refs/heads/main/Metal%20Texture.jpg", type: "TEXTURE" },
+        { name: "Custom Sky Sky", file: "https://raw.githubusercontent.com/flinkobiz-creator/My-Texture-Packs-For-Rivals/refs/heads/main/pirxcy_skybox_spread.zip", type: "SKYBOX", preview: "https://i.redd.it/shp8jwabop7g1.png", panorama: "https://i.redd.it/shp8jwabop7g1.png" },
+        { name: "Typewriter Font", file: "https://raw.githubusercontent.com/flinkobiz-creator/My-Texture-Packs-For-Rivals/refs/heads/main/TypewriterPg-p3o1.ttf", type: "FONT", preview: "https://i.etsystatic.com/23070958/r/il/590de6/4469943030/il_1080xN.4469943030_eqix.jpg" }
+    ];
 
-    <script>
-        /*******************************************************************************
-         * 🛑 EDIT BOX — Change your files and names here! 🛑
-         *
-         *   { name: "DISPLAY NAME", file: "URL", type: "TEXTURE|SKYBOX|FONT", preview: "PREVIEW_IMAGE_URL" },
-         *
-         * `preview` is optional — a thumbnail image shown on the card. If omitted:
-         *   - TEXTURE: uses the file URL as the image
-         *   - SKYBOX: shows an animated 3D cube
-         *   - FONT: shows "Aa" in the loaded font
-         *
-         * For SKYBOX items, you can optionally provide `panorama` with a 360° image URL
-         * to enable the panorama viewer when clicked.
-         *******************************************************************************/
-        const MY_TEXTURE_LIST = [
-            { 
-                name: "SCP Metal Texture", 
-                file: "https://raw.githubusercontent.com/flinkobiz-creator/My-Texture-Packs-For-Rivals/refs/heads/main/Metal%20Texture.jpg",
-                type: "TEXTURE",
-            },
-            { 
-                name: "Custom Sky Sky", 
-                file: "https://raw.githubusercontent.com/flinkobiz-creator/My-Texture-Packs-For-Rivals/refs/heads/main/pirxcy_skybox_spread.zip",
-                type: "SKYBOX",
-                preview: "https://i.redd.it/shp8jwabop7g1.png",
-                panorama: "https://i.redd.it/shp8jwabop7g1.png"
-            },
-            { 
-                name: "Typewriter Font", 
-                file: "https://raw.githubusercontent.com/flinkobiz-creator/My-Texture-Packs-For-Rivals/refs/heads/main/TypewriterPg-p3o1.ttf",
-                type: "FONT",
-                preview: "https://i.etsystatic.com/23070958/r/il/590de6/4469943030/il_1080xN.4469943030_eqix.jpg"
-            }
-        ];
-        /*******************************************************************************
-         * 🛑 END EDIT BOX — Engine below, don't touch! 🛑
-         *******************************************************************************/
+    const loadedFonts = new Set();
+    function loadFont(name, url) { if (loadedFonts.has(name)) return; loadedFonts.add(name); new FontFace(name, `url("${url}")`).load().then(f => document.fonts.add(f)).catch(() => {}); }
 
-        /* ---- Font face loader ---- */
-        const loadedFonts = new Set();
-        function loadFont(name, url) {
-            if (loadedFonts.has(name)) return;
-            loadedFonts.add(name);
-            const fontFace = new FontFace(name, `url("${url}")`);
-            fontFace.load().then(loadedFace => {
-                document.fonts.add(loadedFace);
-            }).catch(() => {});
+    const gridContainer = document.getElementById('gridContainer');
+    MY_TEXTURE_LIST.forEach((item) => {
+        const card = document.createElement('div'); card.className = 'texture-card';
+        const cleanDomainPath = item.file;
+        let previewHTML = '';
+        if (item.preview) { previewHTML = `<img src="${item.preview}" alt="${item.name}" onerror="this.style.display='none';this.parentNode.innerText='PREVIEW UNAVAILABLE';">`; }
+        else if (item.type === 'SKYBOX') { previewHTML = `<div class="skybox-mini-cube"><div>FRONT</div><div>BACK</div><div>RIGHT</div><div>LEFT</div><div>TOP</div><div>BOTTOM</div></div>`; }
+        else if (item.type === 'FONT') { loadFont(item.name, item.file); previewHTML = `<div style="font-family:'${item.name}';font-size:36px;color:var(--text-main);">Aa</div>`; }
+        else { previewHTML = `<img src="${item.file}" alt="${item.name}" onerror="this.style.display='none';this.parentNode.innerText='NO IMAGE FILE IN CLOUDFLARE FOLDER';">`; }
+        card.innerHTML = `<div class="texture-preview-window" onclick="openPreview(${MY_TEXTURE_LIST.indexOf(item)})">${previewHTML}<span class="preview-hint">${item.type === 'SKYBOX' ? 'Click for 360° view' : 'Click to preview'}</span></div><div class="card-body"><span class="card-tag">${item.type || 'ASSET'}</span><div class="texture-title">${item.name}</div><div class="url-box">${cleanDomainPath}</div><div class="btn-layout"><button class="primary-btn action-btn" onclick="navigator.clipboard.writeText('${cleanDomainPath}');alert('Copied:\\n${cleanDomainPath}');">Copy Link</button><a href="${item.file}" target="_blank" class="action-btn">View Full</a></div></div>`;
+        gridContainer.appendChild(card);
+    });
+    document.getElementById('assetCount').textContent = MY_TEXTURE_LIST.length;
+
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+    sections.forEach(s => observer.observe(s));
+
+    function openPreview(index) { const item = MY_TEXTURE_LIST[index]; if (item.type === 'SKYBOX') openSkyboxPreview(item); else if (item.type === 'FONT') openFontPreview(item); else openImagePreview(item); }
+    function openImagePreview(item) { document.getElementById('imageModalTitle').textContent = item.name.toUpperCase(); document.getElementById('imagePreviewSrc').src = item.preview || item.file; document.getElementById('imageModal').classList.add('active'); }
+    function openFontPreview(item) { loadFont(item.name, item.file); document.getElementById('fontModalTitle').textContent = item.name.toUpperCase(); document.getElementById('fontSample').style.fontFamily = `'${item.name}'`; document.getElementById('fontAlphabet').style.fontFamily = `'${item.name}'`; document.getElementById('fontMeta').textContent = `File: ${item.file.split('/').pop()}`; document.getElementById('fontModal').classList.add('active'); }
+
+    const SKY_SEGMENTS = 30, SKY_RADIUS = 400, SKY_HEIGHT = 800;
+    let skyState = { rotY: 0, rotX: 0, autoRotate: false, dragging: false, lastX: 0, lastY: 0, velocity: 0 };
+
+    function buildSkyDome(imageUrl) {
+        const dome = document.getElementById('skyDome'); dome.innerHTML = '';
+        const segAngle = 360 / SKY_SEGMENTS; const segWidth = Math.tan((segAngle * Math.PI / 180) / 2) * SKY_RADIUS * 2;
+        for (let i = 0; i < SKY_SEGMENTS; i++) {
+            const angle = i * segAngle; const seg = document.createElement('div'); seg.className = 'sky-segment';
+            seg.style.width = (segWidth + 2) + 'px'; seg.style.height = SKY_HEIGHT + 'px'; seg.style.left = (-(segWidth + 2) / 2) + 'px'; seg.style.top = (-SKY_HEIGHT / 2) + 'px';
+            seg.style.backgroundImage = `url("${imageUrl}")`; seg.style.backgroundSize = (SKY_SEGMENTS * segWidth) + 'px 100%'; seg.style.backgroundPosition = `${(i / (SKY_SEGMENTS - 1)) * 100}% 50%`; seg.style.backgroundRepeat = 'no-repeat';
+            seg.style.transform = `rotateY(${angle}deg) translateZ(${SKY_RADIUS}px)`; dome.appendChild(seg);
         }
+    }
 
-        /* ---- Card rendering ---- */
-        const gridContainer = document.getElementById('gridContainer');
-        
-        MY_TEXTURE_LIST.forEach((item) => {
-            const card = document.createElement('div');
-            card.className = 'texture-card';
-            
-            const cleanDomainPath = item.file;
+    function buildSkyCube(faces) {
+        const dome = document.getElementById('skyDome'); dome.innerHTML = '';
+        const size = 600, half = size / 2;
+        const faceMap = [{ name: 'front', transform: `translateZ(${half}px)` }, { name: 'back', transform: `rotateY(180deg) translateZ(${half}px)` }, { name: 'right', transform: `rotateY(90deg) translateZ(${half}px)` }, { name: 'left', transform: `rotateY(-90deg) translateZ(${half}px)` }, { name: 'top', transform: `rotateX(90deg) translateZ(${half}px)` }, { name: 'bottom', transform: `rotateX(-90deg) translateZ(${half}px)` }];
+        faceMap.forEach(f => { const face = document.createElement('div'); face.className = 'sky-segment'; face.style.width = size + 'px'; face.style.height = size + 'px'; face.style.left = (-half) + 'px'; face.style.top = (-half) + 'px'; if (faces[f.name]) { face.style.backgroundImage = `url("${faces[f.name]}")`; face.style.backgroundSize = 'cover'; } else { face.style.background = 'linear-gradient(135deg, #1a1515, #0c0a0a)'; } face.style.transform = f.transform; dome.appendChild(face); });
+    }
 
-            // Build preview window content — preview image takes priority, then type-specific fallback
-            let previewHTML = '';
-            if (item.preview) {
-                previewHTML = `<img src="${item.preview}" alt="${item.name}" onerror="this.style.display='none';this.parentNode.innerText='PREVIEW UNAVAILABLE';">`;
-            } else if (item.type === 'SKYBOX') {
-                previewHTML = `
-                    <div class="skybox-mini-cube">
-                        <div>FRONT</div><div>BACK</div><div>RIGHT</div>
-                        <div>LEFT</div><div>TOP</div><div>BOTTOM</div>
-                    </div>
-                `;
-            } else if (item.type === 'FONT') {
-                loadFont(item.name, item.file);
-                previewHTML = `<div style="font-family:'${item.name}';font-size:36px;color:var(--text-main);">Aa</div>`;
-            } else {
-                previewHTML = `<img src="${item.file}" alt="${item.name}" onerror="this.style.display='none';this.parentNode.innerText='NO IMAGE FILE IN CLOUDFLARE FOLDER';">`;
-            }
+    function openSkyboxPreview(item) {
+        document.getElementById('skyboxModalTitle').textContent = item.name.toUpperCase();
+        if (item.faces) { buildSkyCube(item.faces); document.getElementById('skyInfo').textContent = 'DRAG TO LOOK AROUND // CUBE MAP SKYBOX'; }
+        else if (item.panorama || item.preview || item.file) { buildSkyDome(item.panorama || item.preview || item.file); document.getElementById('skyInfo').textContent = 'DRAG TO LOOK AROUND // 360° SKY'; }
+        skyState.rotY = 0; skyState.rotX = 0; skyState.velocity = 0; updateSkyTransform(); document.getElementById('skyboxModal').classList.add('active');
+    }
 
-            card.innerHTML = `
-                <span class="card-tag">${item.type || 'ASSET'}</span>
-                <div class="texture-preview-window" onclick="openPreview(${MY_TEXTURE_LIST.indexOf(item)})">
-                    ${previewHTML}
-                    <span class="preview-hint">${item.type === 'SKYBOX' ? 'Click for 360° view' : 'Click to preview'}</span>
-                </div>
-                <div class="texture-title">${item.name}</div>
-                <div class="url-box">${cleanDomainPath}</div>
-                <div class="btn-layout">
-                    <button class="primary-btn action-btn" onclick="navigator.clipboard.writeText('${cleanDomainPath}'); alert('Copied clean Fleasion URL:\\n${cleanDomainPath}');">Copy Link</button>
-                    <a href="${item.file}" target="_blank" class="action-btn">View Full</a>
-                </div>
-            `;
-            gridContainer.appendChild(card);
-        });
+    function updateSkyTransform() { document.getElementById('skyDome').style.transform = `rotateY(${skyState.rotY}deg) rotateX(${skyState.rotX}deg)`; document.getElementById('skyCompassFill').style.left = (((skyState.rotY % 360) + 360) % 360 / 360 * 70) + '%'; }
+    function toggleSkyAutoRotate() { skyState.autoRotate = !skyState.autoRotate; document.getElementById('skyAutoRotate').classList.toggle('active', skyState.autoRotate); }
+    function resetSkyView() { skyState.rotY = 0; skyState.rotX = 0; skyState.velocity = 0; updateSkyTransform(); }
 
-        /* ---- Preview system ---- */
-        function openPreview(index) {
-            const item = MY_TEXTURE_LIST[index];
-            if (item.type === 'SKYBOX') {
-                openSkyboxPreview(item);
-            } else if (item.type === 'FONT') {
-                openFontPreview(item);
-            } else {
-                openImagePreview(item);
-            }
-        }
+    const skyViewer = document.getElementById('skyViewer');
+    skyViewer.addEventListener('mousedown', e => { skyState.dragging = true; skyState.lastX = e.clientX; skyState.lastY = e.clientY; skyState.velocity = 0; });
+    document.addEventListener('mousemove', e => { if (!skyState.dragging) return; skyState.rotY -= (e.clientX - skyState.lastX) * 0.3; skyState.rotX = Math.max(-60, Math.min(60, skyState.rotX + (e.clientY - skyState.lastY) * 0.2)); skyState.velocity = -(e.clientX - skyState.lastX) * 0.3; skyState.lastX = e.clientX; skyState.lastY = e.clientY; updateSkyTransform(); });
+    document.addEventListener('mouseup', () => { skyState.dragging = false; });
+    skyViewer.addEventListener('touchstart', e => { skyState.dragging = true; skyState.lastX = e.touches[0].clientX; skyState.lastY = e.touches[0].clientY; skyState.velocity = 0; });
+    document.addEventListener('touchmove', e => { if (!skyState.dragging) return; skyState.rotY -= (e.touches[0].clientX - skyState.lastX) * 0.3; skyState.rotX = Math.max(-60, Math.min(60, skyState.rotX + (e.touches[0].clientY - skyState.lastY) * 0.2)); skyState.velocity = -(e.touches[0].clientX - skyState.lastX) * 0.3; skyState.lastX = e.touches[0].clientX; skyState.lastY = e.touches[0].clientY; updateSkyTransform(); });
+    document.addEventListener('touchend', () => { skyState.dragging = false; });
 
-        function openImagePreview(item) {
-            document.getElementById('imageModalTitle').textContent = item.name.toUpperCase();
-            document.getElementById('imagePreviewSrc').src = item.preview || item.file;
-            document.getElementById('imageModal').classList.add('active');
-        }
+    function skyAnimLoop() { if (document.getElementById('skyboxModal').classList.contains('active')) { if (skyState.autoRotate && !skyState.dragging) { skyState.rotY -= 0.15; updateSkyTransform(); } else if (!skyState.dragging && Math.abs(skyState.velocity) > 0.01) { skyState.rotY += skyState.velocity; skyState.velocity *= 0.95; updateSkyTransform(); } } requestAnimationFrame(skyAnimLoop); }
+    skyAnimLoop();
 
-        function openFontPreview(item) {
-            loadFont(item.name, item.file);
-            document.getElementById('fontModalTitle').textContent = item.name.toUpperCase();
-            document.getElementById('fontSample').style.fontFamily = `'${item.name}'`;
-            document.getElementById('fontAlphabet').style.fontFamily = `'${item.name}'`;
-            document.getElementById('fontMeta').textContent = `File: ${item.file.split('/').pop()}`;
-            document.getElementById('fontModal').classList.add('active');
-        }
+    let genState = { rotX: -15, rotY: 20, autoRotate: false, dragging: false, lastX: 0, lastY: 0 };
+    let genCount = 0;
 
-        /* ===== PANORAMA 360° VIEWER ===== */
-        const PANO_SEGMENTS = 24;
-        const PANO_RADIUS = 500;
-        const PANO_HEIGHT = 1000;
-        let panoState = { rotY: 0, autoRotate: false, dragging: false, lastX: 0, velocity: 0 };
+    function getGenFaces() { return { front: document.getElementById('genFront').value.trim(), back: document.getElementById('genBack').value.trim(), left: document.getElementById('genLeft').value.trim(), right: document.getElementById('genRight').value.trim(), top: document.getElementById('genTop').value.trim(), bottom: document.getElementById('genBottom').value.trim() }; }
 
-        function buildPanoCylinder(imageUrl) {
-            const cylinder = document.getElementById('panoCylinder');
-            cylinder.innerHTML = '';
-            const segAngle = 360 / PANO_SEGMENTS;
-            const segWidth = Math.tan((segAngle * Math.PI / 180) / 2) * PANO_RADIUS * 2;
+    function updateGenCube() {
+        const faces = getGenFaces(); const cube = document.getElementById('genCube'); const faceEls = cube.querySelectorAll('.gen-cube-face');
+        const faceMap = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+        faceEls.forEach((el, i) => { const url = faces[faceMap[i]]; const label = el.querySelector('.gen-cube-face-label'); if (url) { el.style.backgroundImage = `url("${url}")`; if (label) label.style.display = 'none'; } else { el.style.backgroundImage = 'none'; el.style.background = 'linear-gradient(135deg, #1a1515, #0c0a0a)'; if (label) label.style.display = 'block'; } });
+    }
 
-            for (let i = 0; i < PANO_SEGMENTS; i++) {
-                const angle = i * segAngle;
-                const seg = document.createElement('div');
-                seg.className = 'pano-segment';
-                seg.style.width = (segWidth + 2) + 'px';
-                seg.style.height = PANO_HEIGHT + 'px';
-                seg.style.left = (-(segWidth + 2) / 2) + 'px';
-                seg.style.top = (-PANO_HEIGHT / 2) + 'px';
-                seg.style.backgroundImage = `url("${imageUrl}")`;
-                seg.style.backgroundSize = (PANO_SEGMENTS * segWidth) + 'px 100%';
-                seg.style.backgroundPosition = `${(i / (PANO_SEGMENTS - 1)) * 100}% 50%`;
-                seg.style.backgroundRepeat = 'no-repeat';
-                seg.style.transform = `rotateY(${angle}deg) translateZ(${PANO_RADIUS}px)`;
-                cylinder.appendChild(seg);
-            }
-        }
+    function updateGenCubeTransform() { document.getElementById('genCube').style.transform = `rotateX(${genState.rotX}deg) rotateY(${genState.rotY}deg)`; }
+    function toggleGenAutoRotate() { genState.autoRotate = !genState.autoRotate; document.getElementById('genAutoRotate').classList.toggle('active', genState.autoRotate); }
+    function resetGenCube() { genState.rotX = -15; genState.rotY = 20; updateGenCubeTransform(); }
 
-        function openSkyboxPreview(item) {
-            document.getElementById('skyboxModalTitle').textContent = item.name.toUpperCase();
-            const panoUrl = item.panorama || item.preview || item.file;
+    const genCubeContainer = document.querySelector('.gen-cube-container');
+    genCubeContainer.addEventListener('mousedown', e => { genState.dragging = true; genState.lastX = e.clientX; genState.lastY = e.clientY; });
+    document.addEventListener('mousemove', e => { if (!genState.dragging) return; genState.rotY += (e.clientX - genState.lastX) * 0.5; genState.rotX -= (e.clientY - genState.lastY) * 0.5; genState.lastX = e.clientX; genState.lastY = e.clientY; updateGenCubeTransform(); });
+    document.addEventListener('mouseup', () => { genState.dragging = false; });
+    genCubeContainer.addEventListener('touchstart', e => { genState.dragging = true; genState.lastX = e.touches[0].clientX; genState.lastY = e.touches[0].clientY; });
+    document.addEventListener('touchmove', e => { if (!genState.dragging) return; genState.rotY += (e.touches[0].clientX - genState.lastX) * 0.5; genState.rotX -= (e.touches[0].clientY - genState.lastY) * 0.5; genState.lastX = e.touches[0].clientX; genState.lastY = e.touches[0].clientY; updateGenCubeTransform(); });
+    document.addEventListener('touchend', () => { genState.dragging = false; });
 
-            if (panoUrl) {
-                buildPanoCylinder(panoUrl);
-                document.getElementById('panoInfo').textContent = 'DRAG TO LOOK AROUND // 360° PANORAMA';
-            } else {
-                document.getElementById('panoInfo').textContent = 'No panorama image available';
-            }
+    function genAnimLoop() { if (genState.autoRotate) { genState.rotY += 0.5; updateGenCubeTransform(); } requestAnimationFrame(genAnimLoop); }
+    genAnimLoop();
 
-            panoState.rotY = 0;
-            panoState.velocity = 0;
-            updatePanoTransform();
-            document.getElementById('skyboxModal').classList.add('active');
-        }
+    function generateSkybox() {
+        const faces = getGenFaces(); if (!Object.values(faces).some(v => v)) { document.getElementById('genOutput').textContent = '// ERROR: Add at least one face image URL first.'; return; }
+        genCount++; document.getElementById('genCount').textContent = genCount;
+        const config = { name: "Custom Skybox " + new Date().toISOString().slice(0, 10), type: "SKYBOX", faces: faces };
+        document.getElementById('genOutput').innerHTML = '// Config generated — copy below:<br><br>' + JSON.stringify(config, null, 2).replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
 
-        function updatePanoTransform() {
-            const cylinder = document.getElementById('panoCylinder');
-            cylinder.style.transform = `rotateY(${panoState.rotY}deg)`;
-            const compassPercent = ((panoState.rotY % 360) + 360) % 360 / 360 * 100;
-            document.getElementById('panoCompassFill').style.left = (compassPercent * 0.7) + '%';
-        }
+    function previewGenSkybox() {
+        const faces = getGenFaces(); if (!Object.values(faces).some(v => v)) { document.getElementById('genOutput').textContent = '// ERROR: Add at least one face image URL first.'; return; }
+        document.getElementById('skyboxModalTitle').textContent = 'GENERATED SKYBOX'; buildSkyCube(faces); document.getElementById('skyInfo').textContent = 'DRAG TO LOOK AROUND // GENERATED CUBE MAP'; skyState.rotY = 0; skyState.rotX = 0; skyState.velocity = 0; updateSkyTransform(); document.getElementById('skyboxModal').classList.add('active');
+    }
 
-        function toggleAutoRotate() {
-            panoState.autoRotate = !panoState.autoRotate;
-            document.getElementById('panoAutoRotate').classList.toggle('active', panoState.autoRotate);
-        }
+    function clearGen() { ['genFront', 'genBack', 'genLeft', 'genRight', 'genTop', 'genBottom'].forEach(id => document.getElementById(id).value = ''); updateGenCube(); document.getElementById('genOutput').textContent = '// Cleared. Add face URLs to start building.'; }
 
-        function resetPanoView() {
-            panoState.rotY = 0;
-            panoState.velocity = 0;
-            updatePanoTransform();
-        }
+    function genUpload(face) {
+        const input = document.getElementById('genFileInput');
+        input.onchange = e => { const file = e.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = ev => { document.getElementById('gen' + face.charAt(0).toUpperCase() + face.slice(1)).value = ev.target.result; updateGenCube(); }; reader.readAsDataURL(file); };
+        input.click();
+    }
 
-        // Drag to rotate
-        const panoViewer = document.getElementById('panoViewer');
-        panoViewer.addEventListener('mousedown', (e) => {
-            panoState.dragging = true;
-            panoState.lastX = e.clientX;
-            panoState.velocity = 0;
-        });
-        document.addEventListener('mousemove', (e) => {
-            if (!panoState.dragging) return;
-            const dx = e.clientX - panoState.lastX;
-            panoState.rotY -= dx * 0.3;
-            panoState.velocity = -dx * 0.3;
-            panoState.lastX = e.clientX;
-            updatePanoTransform();
-        });
-        document.addEventListener('mouseup', () => { panoState.dragging = false; });
-
-        // Touch support
-        panoViewer.addEventListener('touchstart', (e) => {
-            panoState.dragging = true;
-            panoState.lastX = e.touches[0].clientX;
-            panoState.velocity = 0;
-        });
-        document.addEventListener('touchmove', (e) => {
-            if (!panoState.dragging) return;
-            const dx = e.touches[0].clientX - panoState.lastX;
-            panoState.rotY -= dx * 0.3;
-            panoState.velocity = -dx * 0.3;
-            panoState.lastX = e.touches[0].clientX;
-            updatePanoTransform();
-        });
-        document.addEventListener('touchend', () => { panoState.dragging = false; });
-
-        // Auto-rotate + inertia animation loop
-        function panoAnimLoop() {
-            if (document.getElementById('skyboxModal').classList.contains('active')) {
-                if (panoState.autoRotate && !panoState.dragging) {
-                    panoState.rotY -= 0.15;
-                    updatePanoTransform();
-                } else if (!panoState.dragging && Math.abs(panoState.velocity) > 0.01) {
-                    panoState.rotY += panoState.velocity;
-                    panoState.velocity *= 0.95;
-                    updatePanoTransform();
-                }
-            }
-            requestAnimationFrame(panoAnimLoop);
-        }
-        panoAnimLoop();
-
-        /* ---- Modal close ---- */
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
-            if (id === 'skyboxModal') {
-                panoState.autoRotate = false;
-                panoState.velocity = 0;
-                document.getElementById('panoAutoRotate').classList.remove('active');
-            }
-        }
-
-        document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) {
-                    overlay.classList.remove('active');
-                    if (overlay.id === 'skyboxModal') {
-                        panoState.autoRotate = false;
-                        panoState.velocity = 0;
-                        document.getElementById('panoAutoRotate').classList.remove('active');
-                    }
-                }
-            });
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal-overlay.active').forEach(m => {
-                    m.classList.remove('active');
-                    if (m.id === 'skyboxModal') {
-                        panoState.autoRotate = false;
-                        panoState.velocity = 0;
-                        document.getElementById('panoAutoRotate').classList.remove('active');
-                    }
-                });
-            }
-        });
-    </script>
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); if (id === 'skyboxModal') { skyState.autoRotate = false; skyState.velocity = 0; document.getElementById('skyAutoRotate').classList.remove('active'); } }
+    document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) { o.classList.remove('active'); if (o.id === 'skyboxModal') { skyState.autoRotate = false; skyState.velocity = 0; document.getElementById('skyAutoRotate').classList.remove('active'); } } }));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.active').forEach(m => { m.classList.remove('active'); if (m.id === 'skyboxModal') { skyState.autoRotate = false; skyState.velocity = 0; document.getElementById('skyAutoRotate').classList.remove('active'); } }); });
+</script>
 </body>
 </html>
